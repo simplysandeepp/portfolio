@@ -12037,9 +12037,9 @@ pre .code {
 }
 
 .footer .social-links a:hover {
-  background: #695aa6;
-  border-color: #695aa6;
-  color: #fff;
+  background: none;
+  border-color: transparent;
+  color: inherit;
   text-decoration: none;
 }
 
@@ -12080,9 +12080,38 @@ pre .code {
     -webkit-flex-direction: column;
         -ms-flex-direction: column;
             flex-direction: column;
+    text-align: center; /* Center align content */
   }
   .footer .social-links {
     margin-top: 15px;
+    justify-content: center; /* Center social icons */
+    display: flex; /* Ensure flex behavior */
+    flex-wrap: wrap; /* Allow wrapping on small screens */
+  }
+  .social-links a {
+    margin: 5px; /* Reduce margin on small screens */
+  }
+  .social-links a i {
+    font-size: 32px; /* Reduce icon size */
+  }
+}
+
+@media (max-width: 480px) {
+  .social-links a i {
+    font-size: 24px; /* Further reduce icon size for extra small screens */
+  }
+  .footer .social-links a {
+    margin: 3px; /* Even less margin */
+  }
+  .hire-section { /* Assuming this class for the "Hire Me" section */
+    padding: 10px;
+  }
+  .hire-section p {
+    font-size: 14px; /* Smaller text */
+  }
+  .hire-section button {
+    font-size: 16px; /* Adjust button text size */
+    padding: 8px 16px; /* Adjust button padding */
   }
 }
 
@@ -12256,6 +12285,49 @@ pre .code {
   font-size: calc(20px + (35 - 20) * ((100vw - 300px) / (1300 - 300)));
 }
 
+/* Existing footer and social links CSS */
+@media (max-width: 767.98px) {
+  .footer {
+    padding: 15px 0;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    text-align: center;
+  }
+  .footer .social-links {
+    margin-top: 15px;
+    justify-content: center;
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .social-links a {
+    margin: 5px;
+  }
+  .social-links a i {
+    font-size: calc(24px + (32 - 24) * ((100vw - 300px) / (1300 - 300))); /* Scale like h2 */
+  }
+}
+
+@media (max-width: 480px) {
+  .social-links a i {
+    font-size: calc(18px + (24 - 18) * ((100vw - 300px) / (1300 - 300))); /* Further scale down */
+  }
+  .social-links a {
+    margin: 3px;
+  }
+  .hire-section {
+    padding: 10px;
+  }
+  .hire-section p {
+    font-size: calc(12px + (14 - 12) * ((100vw - 300px) / (1300 - 300)));
+  }
+  .hire-section button {
+    font-size: calc(14px + (16 - 14) * ((100vw - 300px) / (1300 - 300)));
+    padding: calc(6px + (8 - 6) * ((100vw - 300px) / (1300 - 300))) calc(12px + (16 - 12) * ((100vw - 300px) / (1300 - 300)));
+  }
+}
 .section .section-subtitle {
   margin-bottom: 6px;
   font-weight: 400;
@@ -12275,13 +12347,13 @@ pre .code {
 }
 
 .social-links a {
-    margin: 10px;
+    margin: 8px;
     display: inline-block;
     transition: all 0.3s ease;
 }
 
 .social-links a i {
-    font-size: 42px;
+    font-size: 35px;
     color: rgba(0, 0, 0, 0.6);  /* Use rgba(255,255,255,0.6) for dark bg */
     opacity: 0.9;
     transition: all 0.3s ease;
