@@ -332,14 +332,13 @@
                 <div class="form-row">
                      <input type="hidden" name="access_key" value="cc9a51c2-d6ab-42b6-b01b-baac5dab4ab7">
                     <div class="form-group col-sm-6">
-                        <input type="text" size="50" class="form-control" placeholder="Your Name" required>
+                        <input type="text" name="name" size="50" class="form-control" placeholder="Your Name" required> <!-- Add name="name" -->
                     </div>
                     <div class="form-group col-sm-6">
-                        <input type="email" class="form-control" placeholder="Enter Email" requried>
+                        <input type="email" name="email" class="form-control" placeholder="Enter Email" required> <!-- Add name="email" -->
                     </div>
                     <div class="form-group col-sm-12">
-                        <textarea name="comment" id="comment" rows="6" class="form-control"
-                            placeholder="Write Something"></textarea>
+                        <textarea name="message" id="comment" rows="6" class="form-control" placeholder="Write Something"></textarea> <!-- Change name="comment" to name="message" -->
                     </div>
                     <div class="form-group col-sm-12 mt-3">
                         <input type="submit" value="Submit" class="btn btn-outline-primary rounded">
