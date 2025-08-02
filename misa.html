@@ -263,11 +263,11 @@ button:active {
       if (data.choices && data.choices.length > 0) {
         appendMessage(data.choices[0].message.content, 'bot');
       } else {
-        appendMessage('No response from API', 'bot');
+        appendMessage('API call failed due to wrong request or network issue. Please try again later !!', 'bot');
       }
     } catch (error) {
       removeTyping();
-      appendMessage('Oops! Something went wrong.', 'bot');
+      appendMessage('API call failed due to wrong request or network issue. Please try again later !!', 'bot');
       console.error(error);
     }
   }
