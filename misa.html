@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Simple OpenRouter Chatbot</title>
+  <style>
+    /* body { font-family: Arial, sans-serif; max-width: 600px; margin: 30px auto; } */
+  body {
+  background: linear-gradient(135deg, #f0f4ff, #ede9ff);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  max-width: 550px;  /* made smaller */
+  margin: 40px auto;
+  color: #333;
+  user-select: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background 0.5s ease;
+}
+
+#chat {
+  border: none;
+  box-shadow: 0 8px 20px rgba(27, 86, 253, 0.15);
+  border-radius: 20px;
+  height: 280px;  /* reduced height */
+  overflow-y: auto;
+  padding: 20px;
+  background: #f9fbff;
+  scrollbar-width: thin;
+  scrollbar-color: #a6c1ff transparent;
+  transition: box-shadow 0.3s ease;
+  margin-bottom: 25px; /* added space below chat */
+}
+
+#chat::-webkit-scrollbar {
+  width: 8px;
+}
+
+#chat::-webkit-scrollbar-thumb {
+  background-color: #a6c1ff;
+  border-radius: 10px;
+}
+
+.user, .bot {
+  max-width: 75%;
+  margin: 12px 0; /* increased vertical margin between chat bubbles */
+  padding: 12px 20px;
+  border-radius: 25px;
+  font-size: 1rem;
+  line-height: 1.4;
+  position: relative;
+  word-wrap: break-word;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  animation: fadeSlideIn 0.4s ease forwards;
+}
+
+.user {
+  margin-left: auto;
+  background: #d6e9ff;
+  color: #0a3d8f;
+  border-bottom-right-radius: 0;
+  transition: background 0.3s ease;
+}
+
+.user:hover {
+  background: #a9d1ff;
+  cursor: default;
+}
+
+.bot {
+  margin-right: auto;
+  background: #e8f0fe;
+  color: #1b56fd;
+  border-bottom-left-radius: 0;
+  transition: background 0.3s ease;
+}
+
+.bot:hover {
+  background: #c6d9ff;
+  cursor: default;
+}
+
+#inputArea {
+  margin-top: 20px; /* bigger gap above input area */
+  display: flex;
+  justify-content: center;
+  gap: 20px; /* increased space between input and button */
+  align-items: center;
+}
+
+input {
+  width: 80%;
+  padding: 14px 20px;
+  border-radius: 30px;
+  border: 1.8px solid #a6c1ff;
+  outline: none;
+  font-size: 1rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: inset 0 2px 8px rgba(166,193,255,0.3);
+}
+
+input:focus {
+  border-color: #1b56fd;
+  box-shadow: 0 0 8px rgba(27, 86, 253, 0.4);
+}
+
+button {
+  margin-top: 10px;
+  margin-left: auto;
+  padding: 14px 34px;
+  border-radius: 30px;
+  background: #1b56fd;
+  border: none;
+  color: white;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(27, 86, 253, 0.25);
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+button:hover {
+  background: #3a7bff;
+  box-shadow: 0 10px 25px rgba(58, 123, 255, 0.4);
+}
+
+button:active {
+  background: #144bcc;
+  box-shadow: 0 4px 12px rgba(20, 75, 204, 0.5);
+}
+
+/* Responsive tweaks to keep proportions consistent */
+
+@media (min-width: 1025px) {
+  body {
+    max-width: 600px; /* smaller for large screens */
+    margin: 50px auto;
+    font-size: 1.15rem;
+  }
+
+  #chat {
+    height: 350px;
+    padding: 30px;
+    margin-bottom: 30px;
+  }
+
+  #inputArea {
+    margin-top: 25px;
+    gap: 25px;
+  }
+
+  input {
+    font-size: 1.1rem;
+    padding: 18px 26px;
+  }
+
+  button {
+    font-size: 1.1rem;
+    padding: 16px 40px;
+  }
+}
+
+@media (max-width: 1024px) and (min-width: 601px) {
+  body {
+    max-width: 90%;
+    margin: 40px auto;
+    font-size: 1.05rem;
+  }
+
+  #chat {
+    height: 310px;
+    padding: 25px;
+    margin-bottom: 28px;
+  }
+
+  #inputArea {
+    margin-top: 32px;
+    gap: 22px;
+  }
+
+  input {
+    font-size: 1rem;
+    padding: 16px 24px;
+  }
+
+  button {
+    font-size: 1rem;
+    padding: 14px 34px;
+  }
+}
+
+@media (max-width: 600px) {
+  body {
+    max-width: 95%;
+    margin: 25px auto;
+    font-size: 0.9rem;
+  }
+
+  #chat {
+    height: 260px;
+    padding: 18px;
+    margin-bottom: 20px;
+  }
+
+  #inputArea {
+    flex-direction: column;
+    gap: 18px;
+    margin-top: 25px;
+  }
+
+  input {
+    width: 100%;
+    font-size: 0.9rem;
+    padding: 14px 18px;
+  }
+
+  button {
+    width: 100%;
+    font-size: 0.9rem;
+    padding: 14px 0;
+  }
+}
+  </style>
+</head>
+<body>
+
+<h2>MISA - Your AI Assistant</h2>
+
+<div id="chat"></div>
+
+<input id="input" placeholder="Say something..." />
+<button id="send">Send</button>
+
+<script>
+  const chat = document.getElementById('chat');
+  const input = document.getElementById('input');
+  const sendBtn = document.getElementById('send');
+
+  async function sendMessage() {
+    const text = input.value.trim();
+    if (!text) return;
+
+    appendMessage(text, 'user');
+    input.value = '';
+    appendMessage('Typing...', 'bot', true);
+
+    try {
+      const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Authorization': 'Bearer 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', // <-- Replace this with your OpenRouter API key
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          model: 'deepseek/deepseek-r1:free',
+          messages: [{ role: 'user', content: text }],
+          temperature: 0.7,
+          max_tokens: 500
+        })
+      });
+
+      const data = await response.json();
+      removeTyping();
+      if (data.choices && data.choices.length > 0) {
+        appendMessage(data.choices[0].message.content, 'bot');
+      } else {
+        appendMessage('No response from API', 'bot');
+      }
+    } catch (error) {
+      removeTyping();
+      appendMessage('Oops! Something went wrong.', 'bot');
+      console.error(error);
+    }
+  }
+
+  function appendMessage(message, sender, isTyping = false) {
+    const div = document.createElement('div');
+    div.className = sender;
+    div.textContent = message;
+    if (isTyping) div.id = 'typing';
+    chat.appendChild(div);
+    chat.scrollTop = chat.scrollHeight;
+  }
+
+  function removeTyping() {
+    const typing = document.getElementById('typing');
+    if (typing) typing.remove();
+  }
+
+  sendBtn.onclick = sendMessage;
+  input.addEventListener('keydown', e => {
+    if (e.key === 'Enter') sendMessage();
+  });
+</script>
+
+</body>
+</html>
